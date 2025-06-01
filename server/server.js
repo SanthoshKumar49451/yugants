@@ -14,10 +14,10 @@ import YugantContact from "./models/YugantContact.js";
 
 const app = express();
 
-connectToDb();
 
-app.use(cors());       // Allow all origins
-app.options('*', cors()); // Preflight for all routes
+
+app.use(cors());       
+app.options('*', cors()); 
 
 app.use(express.json());
 
@@ -94,6 +94,9 @@ app.post("/api/job-opening", upload.single("resume"), async (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+connectToDb().then(()=>{
+  app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+})
+
